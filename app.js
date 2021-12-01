@@ -8,11 +8,11 @@ const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
 const cors = require('cors')
 /*https://eduintern-aug.herokuapp.com*/
-/*const mongourl = "mongodb://localhost:27017"8*/
-const mongourl = "mongodb+srv://first:1234@cluster0.ywotg.mongodb.net/eduaug?retryWrites=true&w=majority"
+const mongourl = "mongodb://localhost:27017"
+/*const mongourl = "mongodb+srv://first:1234@cluster0.ywotg.mongodb.net/eduaug?retryWrites=true&w=majority"*/
 var db;
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+/*app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());*/
 app.use(cors())
 let col_name = "first"
 
@@ -75,7 +75,7 @@ app.get('/quicksearch', (req, res) => {
 // restaurant Details
 app.get('/details/:id', (req, res) => {
     var id = req.params.id
-    db.collection('restaurents').find({ _id: id }).toArray((err, result) => {
+    db.collection('restaurants').find({ _id: id }).toArray((err, result) => {
         if (err) throw err;
         res.send(result)
     })
@@ -90,6 +90,21 @@ app.post('/placeOrder', (req, res) => {
     })
 })
 
+// query example
+app.get('/restaurants',(req,res) =>{
+    var query = {}
+    if(req.query.stateId){
+        query={state_id:Number(req.query.stateId)}
+        console.log(query)
+    }else if(req.query.mealtype){
+        query={"type.mealtype_id":req.query.mealtype}
+    }
+    db.collection('restaurants').find(query).toArray((err,result)=>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
 //filterapi
 app.get('/filter/:mealType', (req, res) => {
     var mealType = req.params.mealType;
@@ -97,7 +112,7 @@ app.get('/filter/:mealType', (req, res) => {
     if (req.query.cuisine) {
         query = { "Type:mealtype.mealtype": mealType, "cuisine.cuisine": req.query.cuisine }
     }
-    db.collection('restaurant').find(query).toArray.toArray((err, result) => {
+    db.collection('restaurants').find(query).toArray.toArray((err, result) => {
         if (err) throw err;
         res.send(result)
     })
