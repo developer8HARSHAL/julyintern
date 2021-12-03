@@ -37,8 +37,8 @@ app.get('/mealtype', (req, res) => {
         res.send(result)
     })
 })
-app.get('/restaurant', (req, res) => {
-    db.collection('restaurant').find().toArray((err, result) => {
+app.get('/restaurants', (req, res) => {
+    db.collection('restaurants').find().toArray((err, result) => {
         if (err) throw err;
         res.send(result)
     })
@@ -83,13 +83,13 @@ app.post('/placeOrder', (req, res) => {
     })
 })
 // query example
-app.get('/restaurants',(req,res) =>{
+app.get('/restaurant',(req,res) =>{
     var query = {}
     if(req.query.stateId){
         query={state_id:Number(req.query.stateId)}
         console.log(query)
-    }else if(req.query.mealtype){
-        query={"type.mealtype_id":req.query.mealtype}
+    }else if(req.query.mealtype_Id){
+        query={"mealTypes.mealtype_id":req.query.mealtype}
     }
     db.collection('restaurants').find(query).toArray((err,result)=>{
         if(err) throw err;
@@ -98,7 +98,7 @@ app.get('/restaurants',(req,res) =>{
 })
 //filterapi
 app.get('/filter/:mealType', (req, res) => {
-    var mealType = req.params.mealType;
+    var mealType =  req.params.mealType;
     var query = { "Type:mealtype": mealType };
     if (req.query.cuisine) {
         query = { "Type:mealtype.mealtype": mealType, "cuisine.cuisine": req.query.cuisine }
