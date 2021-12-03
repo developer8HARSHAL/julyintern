@@ -1,5 +1,6 @@
 var express = require('express');
 const app = express();
+const bodyParser=require('body-parser');
 const dotenv = require('dotenv')
 dotenv.config()
 const port = process.env.PORT || 5785;
@@ -11,7 +12,6 @@ const cors = require('cors')
 const mongourl = "mongodb+srv://first:1234@cluster0.ywotg.mongodb.net/eduaug?retryWrites=true&w=majority"
 //const mongourl = "mongodb://localhost:27017"
 
-var db;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors())
