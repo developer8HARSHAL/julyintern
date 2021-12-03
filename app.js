@@ -6,10 +6,10 @@ const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
 const cors = require('cors')
 /*https://eduintern-aug.herokuapp.com*/
-const mongourl = "mongodb://localhost:27017"
+
 /*const mongourl = "mongodb+srv://first:1234@cluster0.ywotg.mongodb.net/eduaug?retryWrites=true&w=majority"*/
 //const mongourl = "mongodb://localhost:27017"
-const mongourl = "mongodb+srv://first:1234@cluster0.ywotg.mongodb.net/eduaug?retryWrites=true&w=majority"
+
 var db;
 /*app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());*/
