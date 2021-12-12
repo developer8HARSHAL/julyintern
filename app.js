@@ -74,6 +74,14 @@ app.get('/details/:id', (req, res) => {
         res.send(result)
     })
 })
+// menu Details
+app.get('/menu/:id', (req, res) => {
+    var id = req.params.id
+    db.collection('menu').find({ restaurant_id:Number(id) }).toArray((err, result) => {
+        if (err) throw err;
+        res.send(result)
+    })
+})
 // place order 
 app.post('/placeOrder', (req, res) => {
     console.log(req.body);
